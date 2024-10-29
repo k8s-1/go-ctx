@@ -20,7 +20,7 @@ func exampleTimeout() {
 	done := make(chan struct{})
 
 	go func() {
-		time.Sleep(3 * time.Second)
+		time.Sleep(9 * time.Second)
 		close(done)
 	}()
 
