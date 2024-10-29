@@ -6,7 +6,7 @@ import (
 )
 
 func doSomething(ctx context.Context) {
-	fmt.Println("Doing something!")
+	fmt.Println("Doing something!", ctx.Value)
 }
 
 func main() {
