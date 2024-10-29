@@ -90,5 +90,5 @@ func main() {
   processCtxValues(ctx)
 
 
-  doSomethingDeadline(ctx)
+  doSomethingTimeout(ctx)
 }
