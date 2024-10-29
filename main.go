@@ -6,10 +6,9 @@ import (
 	"time"
 )
 
-func doSomethingDeadline(ctx context.Context) {
+func doSomethingTimeout(ctx context.Context) {
   // Good if you just want to time out a ctx.
-	deadline := time.Now().Add(1500 * time.Millisecond)
-	ctx, cancelCtx := context.WithDeadline(ctx, deadline)
+  ctx, cancelCtx := context.WithTimeout(ctx, 1500*time.Millisecond)
 	defer cancelCtx()
 
 	printCh := make(chan int)
