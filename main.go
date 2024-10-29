@@ -31,6 +31,7 @@ func doSomethingDeadline(ctx context.Context) {
 }
 
 func doSomething(ctx context.Context) {
+  // WithCancel good for precise control, returns the ctx and cancel function.
 	ctx, cancelCtx := context.WithCancel(ctx)
 
 	printCh := make(chan int)
