@@ -89,4 +89,7 @@ func main() {
 	doSomething(ctx)
 
   processCtxValues(ctx)
+
+
+  doSomethingDeadline(ctx)
 }
