@@ -7,3 +7,7 @@ import (
 func main() {
 
 }
+
+func exampleTimeout() {
+  ctx := context.Background()
+}
