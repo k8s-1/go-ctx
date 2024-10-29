@@ -1,35 +1,42 @@
 package main
 
 import (
+  "time"
 	"context"
 	"fmt"
 )
 
 func doSomething(ctx context.Context) {
-	fmt.Printf("doSomething: myKey's value is %s\n", ctx.Value("myKey"))
+	ctx, cancelCtx := context.WithCancel(ctx)
+	
+	printCh := make(chan int)
+	go doAnother(ctx, printCh)
 
-	anotherCtx := context.WithValue(ctx, "myKey", "anotherValue")
-	doAnother(anotherCtx)
+	for num := 1; num <= 3; num++ {
+		printCh <- num
+	}
 
-	fmt.Printf("doSomething: myKey's value is %s\n", ctx.Value("myKey"))
+	cancelCtx()
+
+	time.Sleep(100 * time.Millisecond)
+
+	fmt.Printf("doSomething: finished\n")
 }
 
-func doAnother(ctx context.Context) {
-	fmt.Printf("doAnother: myKey's value is %s\n", ctx.Value("myKey"))
+func doAnother(ctx context.Context, printCh <-chan int) {
+	for {
+		select {
+		case <-ctx.Done():
+			if err := ctx.Err(); err != nil {
+				fmt.Printf("doAnother err: %s\n", err)
+			}
+			fmt.Printf("doAnother: finished\n")
+			return
+		case num := <-printCh:
+			fmt.Printf("doAnother: %d\n", num)
+		}
+	}
 }
-
-// 	ctx := context.Background()
-// 	resultsCh := make(chan *WorkResult)
-//
-// 	for {
-// 		select {
-// 		case <-ctx.Done():
-// 			// The context is over, stop processing results
-// 			return
-// 		case result := <-resultsCh:
-// 			// Process the results received
-// 		}
-// 	}
 
 func main() {
 	// ctx := context.TODO()
