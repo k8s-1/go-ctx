@@ -61,4 +61,6 @@ func main() {
 	ctx = context.WithValue(ctx, "myKey", "myValue")
 
 	doSomething(ctx)
+
+  processCtxValues(ctx)
 }
