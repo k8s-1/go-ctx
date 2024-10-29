@@ -18,13 +18,28 @@ func doAnother(ctx context.Context) {
 	fmt.Printf("doAnother: myKey's value is %s\n", ctx.Value("myKey"))
 }
 
+func exampleSelect() {
+	ctx := context.Background()
+	resultsCh := make(chan *WorkResult)
+
+	for {
+		select {
+		case <-ctx.Done():
+			// The context is over, stop processing results
+			return
+		case result := <-resultsCh:
+			// Process the results received
+		}
+	}
+}
+
 func main() {
 	// ctx := context.TODO()
 
 	// The context.Background function creates an empty context like context.TODO does, but it’s designed to be used where you intend to start a known context.
 	ctx := context.Background()
 
-  // The values stored in a specific context.Context are immutable, meaning they can’t be changed.
+	// The values stored in a specific context.Context are immutable, meaning they can’t be changed.
 	ctx = context.WithValue(ctx, "myKey", "myValue")
 
 	doSomething(ctx)
