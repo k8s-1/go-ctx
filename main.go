@@ -3,12 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 func doSomething(ctx context.Context) {
 	ctx, cancelCtx := context.WithCancel(ctx)
-
+	
 	printCh := make(chan int)
 	go doAnother(ctx, printCh)
 
@@ -36,6 +35,19 @@ func doAnother(ctx context.Context, printCh <-chan int) {
 			fmt.Printf("doAnother: %d\n", num)
 		}
 	}
+}
+
+func processCtxValues(ctx context.Context) {
+	fmt.Printf("doSomething: myKey's value is %s\n", ctx.Value("myKey"))
+
+	anotherCtx := context.WithValue(ctx, "myKey", "anotherValue")
+	processOtherCtxValues(anotherCtx)
+
+	fmt.Printf("doSomething: myKey's value is %s\n", ctx.Value("myKey"))
+}
+
+func processOtherCtxValues(ctx context.Context) {
+	fmt.Printf("doAnother: myKey's value is %s\n", ctx.Value("myKey"))
 }
 
 func main() {
