@@ -1,14 +1,14 @@
 package main
 
 import (
-  "time"
 	"context"
 	"fmt"
+	"time"
 )
 
 func doSomething(ctx context.Context) {
 	ctx, cancelCtx := context.WithCancel(ctx)
-	
+
 	printCh := make(chan int)
 	go doAnother(ctx, printCh)
 
