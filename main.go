@@ -7,6 +7,7 @@ import (
 )
 
 func doSomethingDeadline(ctx context.Context) {
+  // Good if you just want to time out a ctx.
 	deadline := time.Now().Add(1500 * time.Millisecond)
 	ctx, cancelCtx := context.WithDeadline(ctx, deadline)
 	defer cancelCtx()
