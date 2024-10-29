@@ -18,7 +18,6 @@ func doAnother(ctx context.Context) {
 	fmt.Printf("doAnother: myKey's value is %s\n", ctx.Value("myKey"))
 }
 
-// func exampleSelect() {
 // 	ctx := context.Background()
 // 	resultsCh := make(chan *WorkResult)
 //
@@ -31,7 +30,6 @@ func doAnother(ctx context.Context) {
 // 			// Process the results received
 // 		}
 // 	}
-// }
 
 func main() {
 	// ctx := context.TODO()
